@@ -66,11 +66,17 @@ function build_stage0() {
 
 function build_chv_binary() {
     local BUILD_DIR="$1"
-    BINARY_DIR="$(readlink -f "$BUILD_DIR/../../target/release/")"
-    echo "BUILDING CHV BINARY"
+    pushd $BUILD_DIR
+    printf "\nBUILDING CHV BINARY..."
+    git clone https://github.com/AlexOrozco1256/chv-g.git -b goog
+
+    pushd chv-g
 
     cargo build --release
-    cp "$BINARY_DIR/cloud-hypervisor" "$BUILD_DIR/"
+    cp "target/release/cloud-hypervisor" "$BUILD_DIR/"
+    popd
+    rm -rf chv-g
+    popd
 }
 
 function copy_host_scripts() {
