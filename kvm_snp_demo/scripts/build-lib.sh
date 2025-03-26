@@ -68,7 +68,7 @@ function build_chv_binary() {
     local BUILD_DIR="$1"
     pushd $BUILD_DIR
     printf "\nBUILDING CHV BINARY..."
-    git clone https://github.com/AlexOrozco1256/chv-g.git -b pr
+    git clone https://github.com/AlexOrozco1256/chv-g.git -b demo
 
     pushd chv-g
 
