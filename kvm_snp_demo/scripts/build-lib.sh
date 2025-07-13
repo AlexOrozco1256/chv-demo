@@ -6,17 +6,17 @@ function build_cloud_image() {
     local BUILD_DIR="$1"
     DISKS_DIR="$(readlink -f "$BUILD_DIR/disks")"
     INIT_FILES="$(readlink -f "$BUILD_DIR/../cvm_init_config")"
-    echo "BUILDING FOCAL CLOUD IMAGE"
+    echo "BUILDING ORACULAR CLOUD IMAGE"
     mkdir -p "$DISKS_DIR"
     pushd "$DISKS_DIR"
-    wget https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
+    wget https://cloud-images.ubuntu.com/oracular/current/oracular-server-cloudimg-amd64.img
 
-    sudo virt-customize -a focal-server-cloudimg-amd64.img \
+    sudo virt-customize -a oracular-server-cloudimg-amd64.img \
         --install nginx --delete /etc/nginx/nginx.conf \
         --copy-in $INIT_FILES/nginx.conf:/etc/nginx --firstboot-command 'nginx'
 
-    qemu-img convert -p -f qcow2 -O raw focal-server-cloudimg-amd64.img focal-server-cloudimg-amd64.raw
-    rm focal-server-cloudimg-amd64.img
+    qemu-img convert -p -f qcow2 -O raw oracular-server-cloudimg-amd64.img oracular-server-cloudimg-amd64.raw
+    rm oracular-server-cloudimg-amd64.img
     popd
 }
 
@@ -46,8 +46,8 @@ function build_stage0() {
     echo "BUILDING STAGE0"
     mkdir -p "$FIRMWARE_DIR"
     pushd "$FIRMWARE_DIR"
-    git clone https://github.com/project-oak/oak.git
-    git clone https://github.com/roy-hopkins/buildigvm.git
+    # git clone https://github.com/project-oak/oak.git
+    # git clone https://github.com/roy-hopkins/buildigvm.git
 
     printf "\nBUILDING OAK CONTAINERS STAGE0..."
     pushd oak
