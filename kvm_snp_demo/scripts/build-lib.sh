@@ -51,8 +51,8 @@ function build_stage0() {
 
     printf "\nBUILDING OAK CONTAINERS STAGE0..."
     pushd oak
-    nix develop --command just stage0_bin && \
-        rsync ./artifacts/stage0_bin ../stage0_bin
+    nix develop --command just github-stage0_bin && \
+        rsync ./artifacts/subjects/stage0_bin ../stage0_bin
     popd
 
     pushd buildigvm
