@@ -6,17 +6,17 @@ function build_cloud_image() {
     local BUILD_DIR="$1"
     DISKS_DIR="$(readlink -f "$BUILD_DIR/disks")"
     INIT_FILES="$(readlink -f "$BUILD_DIR/../cvm_init_config")"
-    echo "BUILDING ORACULAR CLOUD IMAGE"
+    echo "BUILDING NOBLE CLOUD IMAGE"
     mkdir -p "$DISKS_DIR"
     pushd "$DISKS_DIR"
-    wget https://cloud-images.ubuntu.com/oracular/current/oracular-server-cloudimg-amd64.img
+    wget https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img
 
-    sudo virt-customize -a oracular-server-cloudimg-amd64.img \
+    sudo virt-customize -a noble-server-cloudimg-amd64.img \
         --install nginx --delete /etc/nginx/nginx.conf \
         --copy-in $INIT_FILES/nginx.conf:/etc/nginx --firstboot-command 'nginx'
 
-    qemu-img convert -p -f qcow2 -O raw oracular-server-cloudimg-amd64.img oracular-server-cloudimg-amd64.raw
-    rm oracular-server-cloudimg-amd64.img
+    qemu-img convert -p -f qcow2 -O raw noble-server-cloudimg-amd64.img noble-server-cloudimg-amd64.raw
+    rm noble-server-cloudimg-amd64.img
     popd
 }
 
