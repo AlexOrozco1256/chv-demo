@@ -11,7 +11,7 @@ function build_cloud_image() {
     pushd "$DISKS_DIR"
     wget https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img
 
-    sudo virt-customize -a noble-server-cloudimg-amd64.img \
+    virt-customize -a noble-server-cloudimg-amd64.img \
         --install nginx --delete /etc/nginx/nginx.conf \
         --copy-in $INIT_FILES/nginx.conf:/etc/nginx --firstboot-command 'nginx'
 
@@ -46,8 +46,8 @@ function build_stage0() {
     echo "BUILDING STAGE0"
     mkdir -p "$FIRMWARE_DIR"
     pushd "$FIRMWARE_DIR"
-    # git clone https://github.com/project-oak/oak.git
-    # git clone https://github.com/roy-hopkins/buildigvm.git
+    git clone https://github.com/project-oak/oak.git
+    git clone https://github.com/roy-hopkins/buildigvm.git
 
     printf "\nBUILDING OAK CONTAINERS STAGE0..."
     pushd oak
